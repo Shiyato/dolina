@@ -6,3 +6,10 @@ dist
 *.log
 .DS_Store
 *.tsbuildinfo
+
+# Claude / AI-агенты
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+.mcp.json

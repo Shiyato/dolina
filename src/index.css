@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans:
+    "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+
+  /* Долина кофе — токены из Figma */
+  --color-ink: #000000;
+  --color-muted: #707579;
+  --color-ios-blue: #007aff;
+  --color-secondary-bg: #efeff4;
+  --color-avatar: #d9d9d9;
+  --color-avatar-ring: #a2acb0;
+
+  /* Статусы лояльности */
+  --color-pro: #f5b301;
+  --color-contender: #c07f3a;
+  --color-contender-card: #f0dfcc;
+  --color-standard-card: #d7dade;
+  --color-standard-label: #b9bdc2;
+  --color-accrual: #34c759;
+}
+
+/* Градиентные обводки статуса: металлический блик по диагонали */
+:root {
+  --gradient-silver: linear-gradient(
+    135deg,
+    #8b939b 0%,
+    #dfe4e9 26%,
+    #97a0a8 52%,
+    #eaeef2 74%,
+    #79828a 100%
+  );
+  /* Претендент на ВИП — бронза: между серебром стандарта и золотом ВИП */
+  --gradient-contender: linear-gradient(
+    135deg,
+    #a86a2b 0%,
+    #e8b98a 26%,
+    #c07f3a 52%,
+    #f2d3ae 76%,
+    #96602a 100%
+  );
+  --gradient-pro: linear-gradient(
+    135deg,
+    #d99400 0%,
+    #ffe082 26%,
+    #f5b301 52%,
+    #fff0b8 76%,
+    #c98a00 100%
+  );
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+/* Тень для кликабельных элементов — сигнал «это можно нажать».
+   .tap — обычная тень + мягкое утопление при нажатии. */
+.tap {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.1s ease;
+}
+.tap:active {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transform: translateY(1px);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Плавное появление элементов ─────────────────────────────────── */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Базовый класс появления: снизу вверх с затуханием. */
+.animate-rise {
+  opacity: 0;
+  animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Появление с масштабом — для крупных акцентов (аватар, баланс). */
+.animate-pop {
+  opacity: 0;
+  animation: pop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Ступенчатая задержка для последовательного «каскада». */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.12s; }
+.stagger-3 { animation-delay: 0.19s; }
+.stagger-4 { animation-delay: 0.26s; }
+.stagger-5 { animation-delay: 0.33s; }
+.stagger-6 { animation-delay: 0.4s; }
+
+/* Уважаем системную настройку «меньше движения». */
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .animate-pop {
+    animation: none;
+    opacity: 1;
+  }
+}
